@@ -1,6 +1,6 @@
-# React Standard Project
+# 蛋白质分子结构预测应用
 
-一个标准的 React 项目架构，使用现代化的工具和最佳实践。
+一个基于 React 和 Mol* 的蛋白质分子结构预测与可视化应用，支持从氨基酸序列生成3D结构，或通过 PDB ID 加载现有结构。
 
 ## 🚀 技术栈
 
@@ -83,16 +83,13 @@ npm run lint
 
 ## 📝 功能特性
 
-- ✅ 使用 Vite 作为构建工具，提供快速的开发体验
-- ✅ React Router 配置，支持多页面路由
-- ✅ 组件化架构，便于代码复用和维护
-- ✅ ESLint 代码规范检查
-- ✅ 现代化的项目结构
-- ✅ 响应式设计
-- ✅ 自定义 Hooks 示例
-- ✅ API 请求封装
-- ✅ 工具函数库
-- ✅ **Mol* 集成** - 3D分子结构可视化（访问 `/molstar` 页面）
+- ✅ **蛋白质3D结构可视化** - 使用 Mol* 库进行高质量的3D分子结构展示
+- ✅ **序列到结构生成** - 从氨基酸序列自动生成3D结构（纯前端实现）
+- ✅ **PDB ID 快速加载** - 直接从 RCSB Protein Data Bank 加载结构
+- ✅ **横向布局设计** - 优化的用户界面，输入区域与查看器并排显示
+- ✅ **序列编辑功能** - 支持片段替换和结构重新生成
+- ✅ **响应式设计** - 适配不同屏幕尺寸
+- ✅ **现代化技术栈** - React 18 + Vite + Mol*
 
 ## 🎯 目录说明
 
@@ -117,14 +114,9 @@ npm run lint
 
 ### 使用方式
 
-1. 访问 `/molstar` 页面查看交互式示例
-2. 在组件中使用 `MolstarViewer` 组件：
-
-```jsx
-import MolstarViewer from './components/MolstarViewer'
-
-<MolstarViewer pdbId="1crn" />
-```
+1. 访问主页查看蛋白质结构预测界面
+2. 输入氨基酸序列或 PDB ID 来加载/生成3D结构
+3. 在3D查看器中交互式查看和操作分子结构
 
 详细使用说明请参考 [MOLSTAR_USAGE.md](./MOLSTAR_USAGE.md)
 
