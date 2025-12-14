@@ -1,0 +1,459 @@
+.molstar-viewer-with-editing {
+  width: 100%;
+  position: relative;
+}
+
+.sequence-edit-panel {
+  background: rgba(30, 30, 40, 0.95);
+  border: 2px solid rgba(100, 108, 255, 0.5);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.sequence-edit-panel h3 {
+  color: #646cff;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.sequence-display {
+  margin-bottom: 1.5rem;
+}
+
+.sequence-display label {
+  display: block;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.sequence-text {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 1rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  line-height: 1.8;
+  max-height: 200px;
+  overflow-y: auto;
+  word-break: break-all;
+  cursor: pointer;
+}
+
+.aa-residue {
+  display: inline-block;
+  padding: 2px 4px;
+  margin: 1px;
+  border-radius: 3px;
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.aa-residue:hover {
+  background: rgba(100, 108, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.aa-residue.selected {
+  background: #646cff;
+  color: white;
+  font-weight: bold;
+}
+
+.aa-residue.atom-info-selected {
+  background: #ff6b6b;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 0 8px rgba(255, 107, 107, 0.6);
+}
+
+.sequence-hint {
+  margin-top: 0.5rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+}
+
+.fragment-selection {
+  margin-bottom: 1.5rem;
+}
+
+.fragment-selection label {
+  display: block;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.range-inputs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.range-inputs input {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  padding: 0.5rem;
+  color: white;
+  width: 100px;
+  font-size: 0.9rem;
+}
+
+.range-inputs input:focus {
+  outline: none;
+  border-color: #646cff;
+}
+
+.range-inputs span {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.selected-fragment {
+  background: rgba(100, 108, 255, 0.2);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  color: #646cff;
+  font-weight: bold;
+}
+
+.replacement-input {
+  margin-bottom: 1.5rem;
+}
+
+.replacement-input label {
+  display: block;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.replacement-text {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  padding: 0.75rem;
+  color: white;
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+.replacement-text:focus {
+  outline: none;
+  border-color: #646cff;
+  box-shadow: 0 0 0 2px rgba(100, 108, 255, 0.2);
+}
+
+.edit-actions {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.edit-actions button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.replace-btn {
+  background: #646cff;
+  color: white;
+  font-weight: 600;
+}
+
+.replace-btn:hover:not(:disabled) {
+  background: #535bf2;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(100, 108, 255, 0.3);
+}
+
+.replace-btn:disabled {
+  background: rgba(100, 108, 255, 0.3);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.edit-actions button:last-child {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.edit-actions button:last-child:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.preview-info {
+  background: rgba(100, 108, 255, 0.1);
+  border-left: 3px solid #646cff;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-top: 1rem;
+}
+
+.preview-info p {
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0.5rem 0;
+  line-height: 1.6;
+}
+
+.preview-info strong {
+  color: #646cff;
+}
+
+.edit-btn {
+  background: rgba(100, 108, 255, 0.2);
+  color: #646cff;
+  border: 1px solid #646cff;
+}
+
+.edit-btn:hover {
+  background: rgba(100, 108, 255, 0.3);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .sequence-edit-panel {
+    padding: 1rem;
+  }
+
+  .sequence-text {
+    font-size: 0.8rem;
+  }
+
+  .range-inputs {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .range-inputs input {
+    width: 100%;
+  }
+
+  .edit-actions {
+    flex-direction: column;
+  }
+
+  .edit-actions button {
+    width: 100%;
+  }
+}
+
+/* 原子信息面板样式 */
+.atom-info-panel {
+  background: rgba(30, 30, 40, 0.95);
+  border: 2px solid rgba(255, 107, 107, 0.5);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.atom-info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.atom-info-header h3 {
+  color: #ff6b6b;
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.close-btn {
+  background: rgba(255, 107, 107, 0.2);
+  color: #ff6b6b;
+  border: 1px solid #ff6b6b;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.2s;
+}
+
+.close-btn:hover {
+  background: rgba(255, 107, 107, 0.3);
+  transform: scale(1.1);
+}
+
+.residue-info {
+  background: rgba(255, 107, 107, 0.1);
+  border-left: 3px solid #ff6b6b;
+  padding: 1rem;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+}
+
+.residue-info p {
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0.5rem 0;
+  line-height: 1.6;
+}
+
+.residue-info strong {
+  color: #ff6b6b;
+}
+
+.atoms-table-section,
+.distances-section,
+.special-distances {
+  margin-bottom: 2rem;
+}
+
+.atoms-table-section h4,
+.distances-section h4,
+.special-distances h4 {
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.atoms-table-wrapper,
+.distances-table-wrapper {
+  overflow-x: auto;
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+}
+
+.atoms-table,
+.distances-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.atoms-table thead,
+.distances-table thead {
+  background: rgba(255, 107, 107, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.atoms-table th,
+.distances-table th {
+  padding: 0.75rem;
+  text-align: left;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 600;
+  border-bottom: 2px solid rgba(255, 107, 107, 0.5);
+  font-size: 0.9rem;
+}
+
+.atoms-table td,
+.distances-table td {
+  padding: 0.6rem 0.75rem;
+  color: rgba(255, 255, 255, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 0.85rem;
+}
+
+.atoms-table tbody tr:hover,
+.distances-table tbody tr:hover {
+  background: rgba(255, 107, 107, 0.1);
+}
+
+.distance-value {
+  font-family: 'Courier New', monospace;
+  color: #ff6b6b;
+  font-weight: 600;
+}
+
+.distances-controls {
+  margin-bottom: 1rem;
+}
+
+.distances-controls label {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+}
+
+.distances-controls input {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  padding: 0.5rem;
+  color: white;
+  font-family: 'Courier New', monospace;
+}
+
+.distances-controls input:focus {
+  outline: none;
+  border-color: #ff6b6b;
+}
+
+.distances-note {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.special-distances-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.75rem;
+}
+
+.special-distance-item {
+  background: rgba(255, 107, 107, 0.1);
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  border-radius: 6px;
+  padding: 0.75rem;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.special-distance-item strong {
+  color: #ff6b6b;
+  margin-right: 0.5rem;
+}
+
+/* 响应式设计 - 原子信息面板 */
+@media (max-width: 768px) {
+  .atom-info-panel {
+    padding: 1rem;
+  }
+
+  .atoms-table-wrapper,
+  .distances-table-wrapper {
+    max-height: 300px;
+  }
+
+  .atoms-table th,
+  .atoms-table td,
+  .distances-table th,
+  .distances-table td {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .special-distances-grid {
+    grid-template-columns: 1fr;
+  }
+}
+

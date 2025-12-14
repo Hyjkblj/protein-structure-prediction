@@ -1,0 +1,241 @@
+.molstar-viewer-wrapper {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  align-items: flex-start;
+}
+
+.molstar-viewer-container {
+  flex: 1;
+  min-width: 0;
+  height: 600px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #1a1a1a;
+  position: relative;
+}
+
+.molstar-viewer {
+  width: 100%;
+  height: 100%;
+}
+
+.molstar-loading,
+.molstar-error {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.7);
+  padding: 2rem;
+}
+
+.molstar-loading p,
+.molstar-error p {
+  margin: 0.5rem 0;
+}
+
+.molstar-loading .loading-info {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-style: italic;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(100, 108, 255, 0.2);
+  border-top-color: #646cff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.molstar-error h3 {
+  color: #ff6b6b;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.molstar-error .error-hint {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-style: italic;
+}
+
+/* Mol* 插件样式覆盖 */
+.molstar-viewer :global(.msp-plugin) {
+  width: 100%;
+  height: 100%;
+}
+
+/* 确保 Mol* 控件可见 */
+.molstar-viewer :global(.msp-plugin-ui) {
+  background-color: rgba(26, 26, 26, 0.9);
+}
+
+/* 自定义查看器样式 */
+.molstar-custom-viewer {
+  width: 100%;
+  position: relative;
+}
+
+.molstar-custom-canvas-container {
+  width: 100%;
+  height: 600px;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* 隐藏 Molstar 的内置 UI，只显示 viewport/canvas */
+.molstar-custom-canvas-container :global(.msp-plugin) {
+  width: 100%;
+  height: 100%;
+}
+
+/* 隐藏左侧面板 */
+.molstar-custom-canvas-container :global(.msp-plugin .msp-plugin-left-panel),
+.molstar-custom-canvas-container :global(.msp-plugin .msp-plugin-left) {
+  display: none !important;
+}
+
+/* 隐藏右侧面板 */
+.molstar-custom-canvas-container :global(.msp-plugin .msp-plugin-right-panel),
+.molstar-custom-canvas-container :global(.msp-plugin .msp-plugin-right) {
+  display: none !important;
+}
+
+/* 隐藏顶部区域 */
+.molstar-custom-canvas-container :global(.msp-plugin .msp-plugin-top),
+.molstar-custom-canvas-container :global(.msp-plugin .msp-plugin-top-row) {
+  display: none !important;
+}
+
+/* 隐藏底部区域 */
+.molstar-custom-canvas-container :global(.msp-plugin .msp-plugin-bottom),
+.molstar-custom-canvas-container :global(.msp-plugin .msp-plugin-bottom-row) {
+  display: none !important;
+}
+
+/* 隐藏序列查看器和日志 */
+.molstar-custom-canvas-container :global(.msp-plugin .msp-plugin-sequence),
+.molstar-custom-canvas-container :global(.msp-plugin .msp-plugin-log) {
+  display: none !important;
+}
+
+/* 确保 viewport 占满整个容器 */
+.molstar-custom-canvas-container :global(.msp-plugin .msp-plugin-viewport),
+.molstar-custom-canvas-container :global(.msp-plugin .msp-plugin-viewport-wrapper) {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* 确保 canvas 可见 */
+.molstar-custom-canvas-container :global(canvas) {
+  display: block !important;
+}
+
+.custom-controls {
+  padding: 1rem;
+  background: rgba(26, 26, 26, 0.9);
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.control-group {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.control-group label {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  margin-right: 0.5rem;
+}
+
+.style-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.style-buttons button,
+.control-group button {
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.style-buttons button:hover:not(:disabled),
+.control-group button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.style-buttons button.active {
+  background: #646cff;
+  border-color: #646cff;
+  color: white;
+}
+
+.style-buttons button:disabled,
+.control-group button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.loading-overlay,
+.error-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(26, 26, 26, 0.9);
+  z-index: 10;
+}
+
+.loading-overlay p,
+.error-overlay p {
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 1rem;
+}
+
+.error-overlay {
+  color: #ff6b6b;
+}
+
+.error-overlay button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: #646cff;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}
+

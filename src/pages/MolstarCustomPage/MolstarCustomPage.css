@@ -1,0 +1,279 @@
+.molstar-custom-page {
+  padding: 1rem 2rem;        /* 减少顶部 padding，让内容上移 */
+  max-width: 1800px;         /* 增加最大宽度以适应横向布局 */
+  margin: 0 auto;
+  min-height: 100vh;
+  box-sizing: border-box;
+  overflow: hidden;           /* 取消页面滚动条 */
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 1rem;        /* 减少底部间距 */
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #646cff 0%, #747bff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.page-header .subtitle {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.1rem;
+}
+
+/* 状态提示 */
+.status-message {
+  padding: 0.75rem 1.5rem;    /* 减少内边距 */
+  border-radius: 8px;
+  margin-bottom: 1rem;        /* 减少底部间距 */
+  border-left: 4px solid;
+}
+
+.status-message.loading {
+  background: rgba(100, 108, 255, 0.1);
+  border-color: #646cff;
+  color: #646cff;
+}
+
+.status-message.success {
+  background: rgba(76, 175, 80, 0.1);
+  border-color: #4caf50;
+  color: #4caf50;
+}
+
+.status-message.error {
+  background: rgba(244, 67, 54, 0.1);
+  border-color: #f44336;
+  color: #f44336;
+}
+
+.status-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.status-note,
+.status-title {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-top: 0.5rem;
+  padding-left: 1.5rem;
+}
+
+/* 横向布局容器 */
+.main-layout {
+  display: flex;
+  gap: 1.5rem;              /* 减少间距 */
+  align-items: flex-start;
+  min-height: calc(100vh - 150px); /* 减少最小高度，让内容上移 */
+}
+
+/* 输入区域 */
+.input-section {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 1.5rem;          /* 减少内边距 */
+  flex: 0 0 400px;          /* 固定宽度 400px，不缩放 */
+  max-width: 400px;
+  box-sizing: border-box;
+  overflow: hidden;         /* 取消滚动条 */
+  max-height: calc(100vh - 150px);
+}
+
+.input-tabs h2 {
+  margin-bottom: 1rem;       /* 减少底部间距 */
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.1rem;         /* 稍微减小字体 */
+}
+
+.input-group {
+  margin-bottom: 1.5rem;     /* 减少底部间距 */
+}
+
+.input-group:last-child {
+  margin-bottom: 0;
+}
+
+.input-group h3 {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.input-group.pdb-main-input {
+  background: rgba(100, 108, 255, 0.1);
+  border: 2px solid rgba(100, 108, 255, 0.3);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.input-group.pdb-main-input h3 {
+  color: #646cff;
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+}
+
+.input-description {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.pdb-examples,
+.quick-examples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.example-label {
+  color: rgba(255, 255, 255, 0.7);
+  margin-right: 0.5rem;
+  align-self: center;
+}
+
+.example-btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+}
+
+.pdb-input-group,
+.url-input-group {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.pdb-input,
+.url-input {
+  flex: 1;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  color: white;
+  font-size: 1rem;
+}
+
+.pdb-input:focus,
+.url-input:focus {
+  outline: none;
+  border-color: #646cff;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.clear-section {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.clear-btn {
+  background: rgba(244, 67, 54, 0.2);
+  border-color: #f44336;
+  color: #f44336;
+}
+
+.clear-btn:hover {
+  background: rgba(244, 67, 54, 0.3);
+}
+
+/* 查看器区域 */
+.viewer-section {
+  flex: 1;                   /* 占据剩余空间 */
+  min-width: 0;              /* 允许 flex 子元素缩小 */
+  display: flex;
+  flex-direction: column;
+}
+
+.viewer-section h2 {
+  margin-bottom: 0.5rem;     /* 减少底部间距 */
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.1rem;         /* 稍微减小字体 */
+}
+
+.viewer-section .section-description {
+  margin-bottom: 0.5rem;     /* 减少底部间距 */
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;        /* 稍微减小字体 */
+}
+
+.viewer-wrapper {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 0.5rem;           /* 减少内边距 */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
+  flex: 1;                   /* 占据剩余垂直空间 */
+  min-height: 500px;
+  height: calc(100vh - 180px); /* 减少高度计算值，让内容上移 */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;          /* 取消滚动条 */
+}
+
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+  .main-layout {
+    flex-direction: column;  /* 小屏幕时改为纵向布局 */
+  }
+
+  .input-section {
+    flex: 1;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .viewer-wrapper {
+    height: 600px;
+  }
+}
+
+@media (max-width: 768px) {
+  .molstar-custom-page {
+    padding: 1rem;
+  }
+
+  .page-header h1 {
+    font-size: 2rem;
+  }
+
+  .input-section {
+    padding: 1rem;
+  }
+
+  .main-layout {
+    gap: 1rem;
+  }
+
+  .pdb-input-group,
+  .url-input-group {
+    flex-direction: column;
+  }
+
+  .pdb-input,
+  .url-input {
+    width: 100%;
+  }
+
+  .viewer-wrapper {
+    height: 500px;
+    min-height: 400px;
+  }
+}
+

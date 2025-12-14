@@ -1,0 +1,61 @@
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  background-color: #1a1a1a;
+  padding: 0.75rem 2rem;     /* 减少顶部 padding */
+  border-bottom: 1px solid #333;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #5156f3;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links a {
+  color: rgba(255, 255, 255, 0.87);
+  transition: color 0.3s;
+}
+
+.nav-links a:hover {
+  color: #646cff;
+}
+
+.main-content {
+  flex: 1;
+  padding: 0;                /* 移除 padding，让内容更靠上 */
+  max-width: 100%;           /* 允许内容使用全宽 */
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;          /* 取消滚动条 */
+}
+
+.footer {
+  background-color: #1a1a1a;
+  padding: 1rem;
+  border-top: 1px solid #333;
+  margin-top: auto;
+}
+
+.footer p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.6);
+}
+
