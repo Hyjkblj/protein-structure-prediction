@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import MolstarViewerCustom from '../../components/MolstarViewer/MolstarViewerCustom'
 import MolstarViewerWithEditing from '../../components/MolstarViewer/MolstarViewerWithEditing'
 import SequenceInput from '../../components/SequenceInput'
 import Button from '../../components/Button'
 import { generateStructureFromSequence } from '../../utils/structurePrediction'
+import { predictStructure } from '../../api'
 import './MolstarCustomPage.css'
 
 // 预定义的示例 PDB ID
@@ -26,6 +27,8 @@ function MolstarCustomPage() {
   const [pdbData, setPdbData] = useState(null)
   const [predictionStatus, setPredictionStatus] = useState(null)
   const [currentSequence, setCurrentSequence] = useState('')
+  const [isPredicting, setIsPredicting] = useState(false)
+  const abortControllerRef = useRef(null)
 
   const handleLoadPdb = () => {
     const trimmedPdbId = customPdbId.trim().toUpperCase()
@@ -65,10 +68,41 @@ function MolstarCustomPage() {
   }
 
   const handleLoadUrl = () => {
-    if (url.trim()) {
-      setPdbId('')
-      setPdbData(null)
+    const trimmedUrl = url.trim()
+    
+    if (!trimmedUrl) {
+      setPredictionStatus({
+        type: 'error',
+        message: '请输入有效的 URL'
+      })
+      return
     }
+
+    // 验证 URL 格式
+    try {
+      new URL(trimmedUrl)
+    } catch (e) {
+      setPredictionStatus({
+        type: 'error',
+        message: 'URL 格式不正确，请输入有效的 URL'
+      })
+      return
+    }
+
+    console.log(`📥 加载 URL: ${trimmedUrl}`)
+    
+    // 清除旧数据
+    setPdbId('')
+    setPdbData(null)
+    setCurrentSequence('')
+    
+    // 设置加载状态
+    setPredictionStatus({
+      type: 'loading',
+      message: `正在从 URL 加载结构: ${trimmedUrl}...`
+    })
+    
+    // URL 状态已经通过 input 的 onChange 设置，查看器会自动加载
   }
 
   // 处理序列提交
@@ -145,6 +179,97 @@ function MolstarCustomPage() {
     })
   }
 
+  // 后端预测处理函数
+  const handleBackendPrediction = async () => {
+    // 检查是否有序列
+    if (!currentSequence || currentSequence.trim().length === 0) {
+      setPredictionStatus({
+        type: 'error',
+        message: '请先输入氨基酸序列'
+      })
+      return
+    }
+
+    // 如果已有正在进行的请求，先取消
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort()
+    }
+
+    // 创建新的 AbortController
+    abortControllerRef.current = new AbortController()
+
+    setIsPredicting(true)
+    setPredictionStatus({
+      type: 'loading',
+      message: '正在调用后端进行结构预测...'
+    })
+
+    try {
+      console.log('🚀 开始后端预测，序列长度:', currentSequence.length)
+      
+      // 调用后端预测API（传递 abort signal）
+      const pdbData = await predictStructure({
+        sequence: currentSequence,
+        // 可以添加其他配置参数
+        // config: { ... }
+      }, abortControllerRef.current.signal)
+
+      // 检查是否被取消
+      if (abortControllerRef.current.signal.aborted) {
+        return
+      }
+
+      if (!pdbData || pdbData.trim().length === 0) {
+        throw new Error('后端返回的 PDB 数据为空')
+      }
+
+      console.log('✅ 后端预测成功，PDB 数据长度:', pdbData.length)
+
+      // 清除其他数据源
+      setPdbId('')
+      setUrl('')
+      
+      // 设置新的 PDB 数据
+      setPdbData(pdbData)
+
+      // 更新状态提示
+      setPredictionStatus({
+        type: 'success',
+        message: '✅ 后端预测完成！',
+        note: `已成功生成蛋白质3D结构。序列长度：${currentSequence.length} 个氨基酸。`
+      })
+
+    } catch (error) {
+      // 如果是取消操作，静默处理（不显示错误）
+      if (error.name === 'AbortError') {
+        console.log('预测请求已取消')
+        return
+      }
+
+      console.error('后端预测失败:', error)
+      setPredictionStatus({
+        type: 'error',
+        message: error.message || '后端预测失败，请检查后端服务是否正常运行'
+      })
+    } finally {
+      setIsPredicting(false)
+      abortControllerRef.current = null
+    }
+  }
+
+  // 取消预测
+  const handleCancelPrediction = () => {
+    if (abortControllerRef.current && !abortControllerRef.current.signal.aborted) {
+      abortControllerRef.current.abort()
+      setIsPredicting(false)
+      setPredictionStatus({
+        type: 'error',
+        message: '预测已取消'
+      })
+      abortControllerRef.current = null
+    }
+  }
+
   return (
     <div className="molstar-custom-page">
       <div className="page-header">
@@ -186,6 +311,35 @@ function MolstarCustomPage() {
             currentSequence={currentSequence}
             onError={handleError}
           />
+          
+          {/* 后端预测按钮 */}
+          <div className="backend-prediction-section">
+            {!isPredicting ? (
+              <Button
+                onClick={handleBackendPrediction}
+                disabled={!currentSequence.trim()}
+                className="backend-prediction-btn"
+              >
+                🚀 后端预测实验
+              </Button>
+            ) : (
+              <div className="prediction-controls">
+                <Button
+                  onClick={handleCancelPrediction}
+                  className="cancel-prediction-btn"
+                >
+                  ❌ 取消预测
+                </Button>
+                <div className="prediction-status">
+                  <span className="spinner">⏳</span>
+                  <span>预测中...</span>
+                </div>
+              </div>
+            )}
+            <p className="backend-prediction-hint">
+              调用后端 AI4S 服务进行结构预测
+            </p>
+          </div>
           
           {/* 快速示例 */}
           <div className="quick-examples">
